@@ -1,0 +1,7 @@
+stages:
+- stage: plan_terraform
+  jobs:
+
+  - job: validate_terraform
+    steps:
+      - task: TerraformInstaller@0
