@@ -20,25 +20,25 @@ stages:
       - task: TerraformTaskV1@0
         displayName: 'Terraform: Init'
         inputs:
-          workingDirectory: ${{ parameters.workingDirectory }}
-          backendServiceArm: ${{ parameters.backendServiceArm }}
-          backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
-          backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
-          backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
-          backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+          workingDirectory: '${{ parameters.workingDirectory }}'
+          backendServiceArm: '${{ parameters.backendServiceArm }}'
+          backendAzureRmResourceGroupName: '${{ parameters.backendAzureRmResourceGroupName }}'
+          backendAzureRmStorageAccountName: '${{ parameters.backendAzureRmStorageAccountName }}'
+          backendAzureRmContainerName: '${{ parameters.backendAzureRmContainerName }}'
+          backendAzureRmKey: '${{ parameters.backendAzureRmKey }}'
 
       - task: TerraformTaskV1@0
         displayName: 'Terraform: Validate'
         inputs:
           command: validate
-          workingDirectory: ${{ parameters.workingDirectory }}
+          workingDirectory: '${{ parameters.workingDirectory }}'
           commandOptions: '-var-file="${{ parameters.varFile }}"'
-          environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+          environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
 
       - task: TerraformTaskV1@0
         displayName: 'Terraform: Plan'
         inputs:
           command: plan
-          workingDirectory: ${{ parameters.workingDirectory }}
+          workingDirectory: '${{ parameters.workingDirectory }}'
           commandOptions: '-var-file="${{ parameters.varFile }}"'
-          environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+          environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
