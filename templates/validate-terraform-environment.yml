@@ -9,7 +9,7 @@ parameters:
 - name: varFile
 
 stages:
-- stage: Terraform Validate
+- stage: Terraform_Validate
   jobs:
 
   - job:
