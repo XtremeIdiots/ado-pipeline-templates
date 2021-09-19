@@ -33,7 +33,7 @@ stages:
         inputs:
           command: validate
           workingDirectory: '${{ parameters.workingDirectory }}'
-          commandOptions: '-var-file=""${{ parameters.varFile }}""'
+          commandOptions: '-var-file=\"${{ parameters.varFile }}\"'
           environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
 
       - task: TerraformTaskV2@2
@@ -41,5 +41,5 @@ stages:
         inputs:
           command: plan
           workingDirectory: '${{ parameters.workingDirectory }}'
-          commandOptions: '-var-file=""${{ parameters.varFile }}""'
+          commandOptions: '-var-file=\"${{ parameters.varFile }}\"'
           environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
