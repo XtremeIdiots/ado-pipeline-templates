@@ -8,11 +8,12 @@ parameters:
 - name: environmentServiceNameAzureRM
 - name: varFile
 
-variables:
-  commandOptions: '-var-file=\"${{ parameters.varFile }}\"'
-
 stages:
 - stage: ValidateTerraform
+
+  variables:
+    commandOptions: '-var-file=\"${{ parameters.varFile }}\"'
+
   jobs:
   - job: ValidateTerraform
     steps:
