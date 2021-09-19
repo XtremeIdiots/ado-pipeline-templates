@@ -1,7 +1,7 @@
 stages:
-- stage: plan_terraform
+- stage: Terraform Deploy
   jobs:
 
-  - job: validate_terraform
+  - job: 
     steps:
       - task: TerraformInstaller@0
