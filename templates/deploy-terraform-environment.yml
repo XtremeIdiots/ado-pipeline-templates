@@ -37,7 +37,6 @@ stages:
         inputs:
           command: validate
           workingDirectory: '${{ parameters.workingDirectory }}'
-          commandOptions: '$(commandOptions)'
           environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
 
       - task: TerraformTaskV2@2
