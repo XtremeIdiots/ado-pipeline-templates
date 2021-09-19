@@ -11,9 +11,9 @@ parameters:
 stages:
 - stage: ValidateTerraform
   jobs:
-  strategy:
-    parallel: 0
-    
+    strategy:
+      parallel: 0
+
   - job: ValidateTerraform
     steps:
       - task: TerraformInstaller@0
