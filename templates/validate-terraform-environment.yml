@@ -9,12 +9,13 @@ parameters:
 - name: varFile
 
 stages:
-- stage: Terraform_Validate
+- stage: ValidateTerraform
   jobs:
 
-  - job:
+  - job: ValidateTerraform
     steps:
       - task: TerraformInstaller@0
+        displayName: 'Terraform: Install'
 
       - task: TerraformTaskV1@0
         displayName: 'Terraform: Init'
