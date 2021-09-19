@@ -29,7 +29,7 @@ stages:
       - task: TerraformTaskV1@0
         displayName: 'Terraform: Validate'
         inputs:
-          command: plan
+          command: validate
           workingDirectory: ${{ parameters.workingDirectory }}
           commandOptions: '-var-file="${{ parameters.varFile }}"'
           environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
