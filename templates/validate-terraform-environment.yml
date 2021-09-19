@@ -12,7 +12,7 @@ stages:
 - stage: ValidateTerraform
 
   variables:
-    commandOptions: '-var-file=\"${{ parameters.varFile }}\"'
+    commandOptions: "-var-file='${{ parameters.varFile }}'"
 
   jobs:
   - job: ValidateTerraform
