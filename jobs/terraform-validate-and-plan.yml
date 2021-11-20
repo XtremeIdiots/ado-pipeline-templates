@@ -12,7 +12,7 @@ jobs:
 - job: TerraformValidateAndPlan
 
   variables:
-  commandOptions: '-var-file="${{ parameters.varFile }}"'
+    commandOptions: '-var-file="${{ parameters.varFile }}"'
 
   steps:
     - task: TerraformInstaller@0
