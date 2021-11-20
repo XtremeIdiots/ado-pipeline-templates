@@ -1,7 +1,7 @@
 parameters:
 - name: jobName
   type: string
-  default: TerraformValidateAndPlan
+  default: TerraformPlanAndApply
 - name: dependsOn
   type: object
   default: []
@@ -51,3 +51,18 @@ jobs:
         workingDirectory: '${{ parameters.workingDirectory }}'
         commandOptions: '$(commandOptions)'
         environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
+
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform: Apply'
+      name: 'terraform_apply'
+      inputs:
+        command: apply
+        workingDirectory: '${{ parameters.workingDirectory }}'
+        commandOptions: '$(commandOptions)'
+        environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
+
+    - powershell: |
+        $terraformOutput = Get-Content "$(terraform_apply.jsonOutputVariablesPath)" | ConvertFrom-Json
+        $terraformOutput | Get-Member -MemberType NoteProperty | % { $o = $terraformOutput.($_.Name); Write-Host "##vso[task.setvariable variable=$($_.Name);isoutput=true;issecret=$($o.sensitive)]$($o.value)" }
+      name: terraform_output
+      displayName: 'Pass-through Terraform Outputs'
