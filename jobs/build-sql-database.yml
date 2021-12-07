@@ -16,21 +16,17 @@ jobs:
   pool:
     vmImage: windows-latest
 
-  variables:
-    buildConfiguration: 'Release'
-
   steps:
-  - task: DotNetCoreCLI@2
+  - task: MSBuild@1
     inputs:
-      command: 'build'
-      projects: '**/database.sqlproj'
-      arguments: '--configuration $(buildConfiguration)'
-    displayName: 'dotnet build $(buildConfiguration)'
+      solution: '**/database.sqlproj'
+      platform: 'AnyCPU'
+      configuration: 'Release'
 
   - task: CopyFiles@2
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
     inputs:
-      sourceFolder: '$(Build.SourcesDirectory)/src/database/bin/Release/netstandard2.1/'
+      sourceFolder: '$(Build.SourcesDirectory)/src/database/bin/Release/'
       targetFolder: '$(Build.ArtifactStagingDirectory)/database'
 
   - publish: '$(Build.ArtifactStagingDirectory)/database'
