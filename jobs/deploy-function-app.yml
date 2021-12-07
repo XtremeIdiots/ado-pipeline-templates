@@ -7,13 +7,13 @@ parameters:
   default: []
 - name: environmentServiceNameAzureRM
 
-variables:
-- name: function_app_name
-  value: $[ dependencies.TerraformPlanAndApply.outputs['terraform_output.function_app_name'] ]
-
 jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
+
+  variables:
+  - name: function_app_name
+    value: $[ dependencies.TerraformPlanAndApply.outputs['terraform_output.function_app_name'] ]
 
   steps: 
     - download: current
