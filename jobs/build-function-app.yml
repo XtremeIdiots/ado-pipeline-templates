@@ -8,6 +8,9 @@ parameters:
 - name: publishArtifact
   type: boolean
   default: false
+- name: projectName
+  type: string
+  default: 'function-app'
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -26,26 +29,26 @@ jobs:
   - task: DotNetCoreCLI@2
     inputs:
       command: 'restore'
-      projects: '**/function-app.csproj'
+      projects: '**/${{ parameters.projectName }}.csproj'
 
   - task: DotNetCoreCLI@2
     inputs:
       command: 'build'
-      projects: '**/function-app.csproj'
+      projects: '**/${{ parameters.projectName }}.csproj'
       arguments: '--configuration $(buildConfiguration)'
     displayName: 'dotnet build $(buildConfiguration)'
 
   - task: ArchiveFiles@2
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
-    displayName: "Package function-app to artifact staging directory"
+    displayName: "Package ${{ parameters.projectName }} to artifact staging directory"
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)/src/function-app/bin/Release/net6.0/'
+      rootFolderOrFile: '$(Build.SourcesDirectory)/src/function-apps/${{ parameters.projectName }}/bin/Release/net6.0/'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/function-app.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}.zip'
       replaceExistingArchive: true
 
-  - publish: $(Build.artifactStagingDirectory)/function-app.zip
+  - publish: $(Build.artifactStagingDirectory)/${{ parameters.projectName }}.zip
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
-    displayName: Publish function-app artifact
-    artifact: function-app
+    displayName: Publish ${{ parameters.projectName }} artifact
+    artifact: ${{ parameters.projectName }}

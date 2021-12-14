@@ -5,6 +5,9 @@ parameters:
 - name: dependsOn
   type: object
   default: []
+- name: projectName
+  type: string
+  default: 'function-app'
 - name: environmentServiceNameAzureRM
 
 jobs:
@@ -13,15 +16,15 @@ jobs:
 
   variables:
   - name: function_app_name
-    value: $[ dependencies.TerraformPlanAndApply.outputs['terraform_output.function_app_name'] ]
+    value: $[ dependencies.TerraformPlanAndApply.outputs['terraform_output.${{ parameters.projectName }}_name'] ]
 
   steps: 
     - download: current
-      displayName: 'Download function-app artifact'
-      artifact: function-app
+      displayName: 'Download ${{ parameters.projectName }} artifact'
+      artifact: ${{ parameters.projectName }}
 
     - task: AzureFunctionApp@1
       inputs:
         azureSubscription: '${{ parameters.environmentServiceNameAzureRM }}'
         appName: '$(function_app_name)'
-        package: '$(Pipeline.Workspace)/function-app/function-app.zip'
+        package: '$(Pipeline.Workspace)/${{ parameters.projectName }}/${{ parameters.projectName }}.zip'
