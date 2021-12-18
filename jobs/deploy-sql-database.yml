@@ -11,9 +11,6 @@ jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
 
-  pool:
-    vmImage: windows-latest
-
   variables:
   - name: sql_server_domain_name
     value: $[ dependencies.TerraformPlanAndApply.outputs['terraform_output.sql_server_domain_name'] ]
