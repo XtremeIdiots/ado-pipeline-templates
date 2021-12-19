@@ -38,6 +38,14 @@ jobs:
       arguments: '--configuration $(buildConfiguration)'
     displayName: 'dotnet build $(buildConfiguration)'
 
+  - task: DotNetCoreCLI@2
+    condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
+    inputs:
+      command: 'publish'
+      projects: '**/${{ parameters.projectName }}.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+    displayName: 'dotnet publish $(buildConfiguration)'
+
   - task: ArchiveFiles@2
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
     displayName: "Package ${{ parameters.projectName }} to artifact staging directory"
