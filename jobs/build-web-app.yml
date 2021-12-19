@@ -43,7 +43,7 @@ jobs:
     inputs:
       command: 'publish'
       projects: '**/${{ parameters.projectName }}.csproj'
-      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}.zip'
     displayName: 'dotnet publish $(buildConfiguration)'
 
   - publish: $(Build.artifactStagingDirectory)/${{ parameters.projectName }}.zip
