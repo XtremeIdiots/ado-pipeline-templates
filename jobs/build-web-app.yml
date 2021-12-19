@@ -43,10 +43,10 @@ jobs:
     inputs:
       command: 'publish'
       projects: '**/${{ parameters.projectName }}.csproj'
-      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}.zip'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}/${{ parameters.projectName }}.zip'
     displayName: 'dotnet publish $(buildConfiguration)'
 
-  - publish: $(Build.artifactStagingDirectory)/${{ parameters.projectName }}.zip
+  - publish: '$(Build.artifactStagingDirectory)/${{ parameters.projectName }}''
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
     displayName: Publish ${{ parameters.projectName }} artifact
     artifact: ${{ parameters.projectName }}
