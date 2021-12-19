@@ -42,11 +42,12 @@ jobs:
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
     inputs:
       command: 'publish'
+      publishWebProjects: false
       projects: '**/${{ parameters.projectName }}.csproj'
-      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/${{ parameters.projectName }}.zip'
     displayName: 'dotnet publish $(buildConfiguration)'
 
-  - publish: '$(Build.artifactStagingDirectory)/${{ parameters.projectName }}'
+  - publish: '$(Build.artifactStagingDirectory)/${{ parameters.projectName }}.zip'
     condition: and(succeeded(), eq('${{ parameters.publishArtifact }}', 'true'))
     displayName: Publish ${{ parameters.projectName }} artifact
     artifact: ${{ parameters.projectName }}
