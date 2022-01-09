@@ -5,6 +5,9 @@ parameters:
 - name: dependsOn
   type: object
   default: []
+- name: additionalCommandOptions
+  type: string
+  default: ""
 - name: workingDirectory
 - name: backendServiceArm
 - name: backendAzureRmResourceGroupName
@@ -19,7 +22,7 @@ jobs:
   dependsOn: ${{ parameters.dependsOn }}
 
   variables:
-    commandOptions: '-var-file="${{ parameters.varFile }}"'
+    commandOptions: '-var-file="${{ parameters.varFile }}" ${{ parameters.additionalCommandOptions }}'
 
   steps:
     - task: TerraformInstaller@0
