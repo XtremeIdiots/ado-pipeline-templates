@@ -6,6 +6,9 @@ parameters:
   type: object
   default: []
 - name: environmentServiceNameAzureRM
+- name: sqlCmdArgs
+  type: string
+  default: ""
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -29,4 +32,5 @@ jobs:
         DatabaseName: '$(sql_database_name)'
         AuthenticationType: servicePrincipal
         DacpacFile: '$(Pipeline.Workspace)/database/database.dacpac'
+        InlineAdditionalArguments: ${{ parameters.sqlCmdArgs }}
           
