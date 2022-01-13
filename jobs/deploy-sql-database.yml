@@ -32,5 +32,4 @@ jobs:
         DatabaseName: '$(sql_database_name)'
         AuthenticationType: servicePrincipal
         DacpacFile: '$(Pipeline.Workspace)/database/database.dacpac'
-        InlineAdditionalArguments: ${{ parameters.sqlCmdArgs }}
-          
+        AdditionalArguments: ${{ parameters.sqlCmdArgs }}
