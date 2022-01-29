@@ -45,4 +45,5 @@ jobs:
       inputs:
         command: destroy
         workingDirectory: '${{ parameters.workingDirectory }}'
+        commandOptions: '$(commandOptions)'
         environmentServiceNameAzureRM: '${{ parameters.environmentServiceNameAzureRM }}'
